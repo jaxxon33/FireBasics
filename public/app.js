@@ -13,13 +13,13 @@ document.addEventListener("DOMContentLoaded", event => {
 	myPost.get()
 		.then(doc => {
 			const data = doc.data()
-			first.innerHTML = `${data.title} ${data.views} ${data.createdAt.toDate()}`
+			first.innerHTML = `Title: ${data.title} Views: ${data.views} Created: ${data.createdAt.toDate()}`
 		})
 
 	// get changes as they happen
 	myPost.onSnapshot(doc => {
 		const data = doc.data()
-		second.innerHTML = `${data.title} ${data.views} ${data.createdAt.toDate()}`
+		second.innerHTML = `Title: ${data.title} Views: ${data.views} Created: ${data.createdAt.toDate()}`
 	})
 })
 
@@ -31,4 +31,11 @@ function googleLogin() {
 			const user = result.user
 			heading.innerHTML = `Hello ${user.displayName}`
 		})
+}
+
+// get input to modify db
+function updatePost(e) {
+	const db = firebase.firestore()
+	const myPost = db.collection('posts').doc('firstpost')
+	myPost.update({ title: e.target.value })
 }
