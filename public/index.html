@@ -16,12 +16,17 @@
     <script defer src="/__/firebase/init.js"></script>
   </head>
   <body>
-    <script src="app.js">
-    </script>
-    <h1>Hello Firebase World</h1>
-    <br />
+    <script src="app.js"></script>
+    <h1 id="heading">Hello Firebase World</h1>
+    <ul>
+      <li id ="first"></li>
+      <li id="second"></li>
+    </ul>
     <button onclick="googleLogin()">
       Login with Google
     </button>
+
+    <h1 id="title"></h1>
+    <input onchange="updatePost(event)">
   </body>
 </html>
