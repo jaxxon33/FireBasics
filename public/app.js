@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", event => {
 
+	const app = firebase.app()
 	// told to add via firestore to get timestamps working
 	firebase.firestore().settings({ timestampsInSnapshots: true });
 
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
 				// generate items to insert in ul
 				const li = document.createElement('li')
-				li.innerHTML=`${data.name} at ${data.price}`
+				li.innerHTML = `${data.name} at ${data.price}`
 				prodList.appendChild(li)
 			})
 		})
@@ -53,4 +54,17 @@ function updatePost(e) {
 	const db = firebase.firestore()
 	const myPost = db.collection('posts').doc('firstpost')
 	myPost.update({ title: e.target.value })
+}
+
+// file handling
+function uploadFile(files) {
+	const storageRef = firebase.storage().ref()
+	const imageRef = storageRef.child('image.jpg')
+	const file = files.item(0)
+	const task = imageRef.put(file)
+	task.then(snapshot => {
+		snapshot.ref.getDownloadURL().then(function (url) {
+			imgUpload.setAttribute('src', url)
+		})
+	})
 }

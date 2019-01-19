@@ -19,7 +19,12 @@
 
 <body>
   <script src="app.js"></script>
-  <h1 id="heading">Hello Firebase</h1>
+
+  <h3>Sorage Uploads</h3>
+  <input type="file" onchange="uploadFile(this.files)">
+  <img id="imgUpload" src="" width="100vw">
+
+  <h3 id="heading">Database Access</h3>
   <ul id=prodList></ul>
   <p id="first"></p>
   <p id="second"></p>
