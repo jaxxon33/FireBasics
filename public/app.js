@@ -1,13 +1,30 @@
 document.addEventListener("DOMContentLoaded", event => {
-	const app = firebase.app()
-	console.log(app)
+
+	// const app = firebase.app()
 
 	// told to add via firestore to get timestamps working
 	firebase.firestore().settings({ timestampsInSnapshots: true });
 
 	// connect to db
 	const db = firebase.firestore()
+
+	// get posts data
 	const myPost = db.collection('posts').doc('firstpost')
+
+	// get products data
+	const productsRef = db.collection('products')
+	const query = productsRef.where('price', '>', 26)
+	query.get()
+		.then(products => {
+			products.forEach(doc => {
+				data = doc.data()
+
+				// generate item to insert in ul
+				const li = document.createElement('li')
+				li.innerHTML=`${data.name} at ${data.price}`
+				prodList.appendChild(li)
+			})
+		})
 
 	// retrieve item
 	myPost.get()
